@@ -2,12 +2,21 @@ const express = require("express");
 const app = express(); //req.body
 const cors = require("cors");
 const pool = require("./db");
+const path = require("path");
+const PORT = process.env.PORT || 5000;
 
+//process.env.PORT
+//porcess.env.NODE_ENV => production or undefined
 
 //middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // access req.body
 
+if(process.env.NODE_ENV === "production"){
+    //serve static content
+    //npm run build
+    app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 //Routes
 
@@ -83,8 +92,11 @@ app.delete("/todos/:id", async(req, res) => {
     }
 });
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
 
 //when we want server to start, listen to a port
-app.listen(5000, () => {
-    console.log("server has started on port 5000");
+app.listen(PORT, () => {
+    console.log(`server has started on port ${PORT}`);
 });
