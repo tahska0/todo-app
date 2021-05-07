@@ -17,7 +17,7 @@ const EditTodo = ({ todo }) => {
         }catch(err){
             console.log(err.message);
         }
-    }
+    };
 
     return(
         <Fragment>

@@ -12,12 +12,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); // access req.body
 
+// app.use(express.static(path.join(__dirname, "/client/build")));
+
 if(process.env.NODE_ENV === "production"){
     //serve static content
     //npm run build
-    app.use(express.static(path.join(__dirname, "client/build")));
+    console.log("in prod v");
+    app.use(express.static(path.join(__dirname, "/client/build")));
 }
-
+// console.log(path.join(__dirname, "/client/build"));
 //Routes
 
 //create a todo
